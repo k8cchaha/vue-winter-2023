@@ -10,8 +10,51 @@
 <body>
   <div id="app">
     <div class="container">
-      <div class="main"></div>
-      <div class="detail"></div>
+      <div class="main">
+        <h2>產品列表</h2>
+        <div class="product-list">
+          <table>
+            <thead>
+              <tr>
+                <th v-for='head in productListHead'>{{ head }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item in products">
+                <td class="product-name" @click="onClickProduct(item)">{{ item.title }}</td>
+                <td style="text-align: right;">{{ item.origin_price }}</td>
+                <td style="text-align: right;">{{ item.price }}</td>
+                <td style="text-align: center;" :class="{'product-enable': item.is_enabled > 0}">{{ item.is_enabled > 0 ? '啟用' : '未啟用' }}</td>
+                <td style="text-align: center;">
+                  <button type="button" @click="onClickProduct(item)">查看細節</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="product-quantity">
+          <span>目前有 {{ products.length }} 項產品</span>
+        </div>
+      </div>
+      <div class="detail">
+        <h2>單一產品細節</h2>
+        <div class="product-none" v-if="!selectProduct">
+          請點選產品細節
+        </div>
+        <div class="product-detail" v-else>
+          <div class="product-info">
+            <div v-for="item in displayDetailItem" :style="item.style">{{ item.directShow? `${selectProduct[item.key]}`: `${item.name} ${selectProduct[item.key]}` }}</div>
+          </div>
+          <div class="product-imgs">
+            <div class="main-img">
+              <img :src="selectProduct.imageUrl"></img>
+            </div>
+            <div class="other-imgs">
+              <img :src="img" v-for="img in selectProduct.imagesUrl">
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script type="module" src="./app.js"></script>
