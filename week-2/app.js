@@ -4,6 +4,7 @@ import { products } from './data.js'
 const app = createApp({
   data() {
     return {
+      isLogin: false,
       products: products || [],
       productListHead: ['產品名稱', '原價', '售價', '是否啟用', '查看細節'],
       selectProduct: null,
