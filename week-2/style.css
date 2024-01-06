@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+}
+
+.main, .detail {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dddddd;
+}
+
+th, td {
+  padding: 8px; /* 设置单元格内边距 */
+}
+
+th {
+  text-align: center;
+}
+
+tbody tr:hover {
+  background-color: wheat;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background-color: blue;
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.product-name {
+  cursor: pointer;
+}
+
+.product-name:hover {
+  color: blue;
+}
+
+.product-enable {
+  color: green;
+}
+
+.product-quantity {
+  margin-top: 20px
+}
+
+.product-detail {
+  display: flex;
+}
+
+.product-info, .product-imgs {
+  flex: 1;
+}
+
+.container .detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-none {
+  display: flex;
+  color: red;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-size: 20px;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info div {
+  margin-bottom: 5px;;
+}
+
+.product-imgs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.product-imgs img {
+  max-height: 100%;
+  max-width: 100%;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.main-img {
+  max-height: 300px;
+  margin-bottom: 10px;
+}
+
+.other-imgs {
+  max-height: 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
