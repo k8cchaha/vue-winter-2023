@@ -7,7 +7,8 @@ const app = createApp({
       isLogin: false,
       account: '',
       password: '',
-      baseUrl: 'https://ec-course-api.hexschool.io'
+      baseUrl: 'https://ec-course-api.hexschool.io',
+      showLoading: false
     }
   },
   computed: {
@@ -34,6 +35,9 @@ const app = createApp({
       .catch((err)=>{
         console.log(err)
       })
+      .finally(()=>{
+        this.showLoading = false
+      })
     },
     loginCheck() {
       this.apiCheckUser(this.getCookie('adminToken'))
@@ -50,26 +54,36 @@ const app = createApp({
         alert('請重新登入')
         this.backToLogin()
       })
+      .finally(()=>{
+        this.showLoading = false
+      })
     },
     logout() {
       this.apiLogout()
       .then(()=>{
+        document.cookie = `adminToken=;expires=${new Date()}`
         this.backToLogin()
       })
       .catch((err)=>{
         console.log(err)
       })
+      .finally(()=>{
+        this.showLoading = false
+      })
     },
     apiCheckUser(token) {
+      this.showLoading = true
       return axios.post(`v2/api/user/check`, {}, {
         headers: {
           'Authorization': `${token}`
       }})
     },
     apiSignin(data) {
+      this.showLoading = true
       return axios.post(`v2/admin/signin`, data)
     },
     apiLogout() {
+      this.showLoading = true
       return axios.post(`v2/logout`)
     },
     getCookie(name) {
@@ -100,6 +114,9 @@ const app = createApp({
       })
       .catch((err)=>{
         console.log(err)
+      })
+      .finally(()=>{
+        this.showLoading = false
       })
     }
   }

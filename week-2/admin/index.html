@@ -8,6 +8,9 @@
 </head>
 <body>
   <div id="app">
+    <div class="overlay" v-show="showLoading">
+      <div class="loader"></div>
+    </div>
     <div class="login" v-if="!isLogin">
       <div class="container">
         <h2>請登入</h2>
