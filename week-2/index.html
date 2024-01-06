@@ -23,7 +23,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in products">
+              <tr v-for="item in products" :key="item.id">
                 <td class="product-name" @click="onClickProduct(item)">{{ item.title }}</td>
                 <td style="text-align: right;">{{ item.origin_price }}</td>
                 <td style="text-align: right;">{{ item.price }}</td>
