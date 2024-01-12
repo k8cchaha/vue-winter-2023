@@ -30,7 +30,7 @@
             <table>
               <thead>
                 <tr>
-                  <th v-for='head in productListHead'>{{ head }}</th>
+                  <th v-for='head in productListHead' :key="head">{{ head }}</th>
                 </tr>
               </thead>
               <tbody>
@@ -57,14 +57,14 @@
           </div>
           <div class="product-detail" v-else>
             <div class="product-info">
-              <div v-for="item in displayDetailItem" :style="item.style">{{ item.directShow? `${selectedProduct[item.key]}`: `${item.name} ${selectedProduct[item.key]}` }}</div>
+              <div v-for="item in displayDetailItem" :style="item.style" :key="item.key">{{ item.directShow? `${selectedProduct[item.key]}`: `${item.name} ${selectedProduct[item.key]}` }}</div>
             </div>
             <div class="product-imgs">
               <div class="main-img">
                 <img :src="selectedProduct.imageUrl"></img>
               </div>
               <div class="other-imgs">
-                <img :src="img" v-for="img in selectedProduct.imagesUrl">
+                <img :src="img" v-for="img in selectedProduct.imagesUrl" :key="img">
               </div>
             </div>
           </div>
