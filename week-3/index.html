@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div class="overlay" v-show="showLoading">
+      <div class="loader"></div>
+    </div>
+    <div class="overlay" v-show="showCreateDlg || showEditDlg || showDeleteDlg">
+      <div class="pop-dlg">
+        <div class="popdlg-header">
+          <span>{{ showCreateDlg? '新增': showEditDlg? '修改': showDeleteDlg? '刪除': 'Unknown' }}</span>
+        </div>
+        <div v-show="showCreateDlg"></div>
+        <div v-show="showEditDlg"></div>
+        <div v-show="showDeleteDlg"></div>
+        <div class="popdlg-footer">
+          <button type="button">取消</button>
+          <button type="button">確定</button>
+        </div>
+      </div>
+    </div>
+    <div class="login" v-if="!isLogin">
+      <h2>請登入</h2>
+      <input type="email" placeholder="帳號" autofocus v-model="account">
+      <input type="password" placeholder="密碼" v-model="password">
+      <button type="button" @click="submit" :disabled="!dataValid">登入</button>
+    </div>
+    <div v-else >
+      <div class="header">
+        <button type="button" @click="loginCheck">登入檢查</button>
+        <button type="button" @click="logout" class="logout">登出</button>
+      </div>
+      <div class="container">
+        <div class="main">
+          <div class="product-head">
+            <h2>產品列表</h2>
+            <button type="button" @click="createProduct">新增產品</button>
+          </div>
+          <div class="product-list">
+            <table>
+              <thead>
+                <tr>
+                  <th>分類</th>
+                  <th>產品名稱</th>
+                  <th>原價</th>
+                  <th>售價</th>
+                  <th>是否啟用</th>
+                  <th>編輯</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in products" :key="item.id">
+                  <td class="product-name">{{ item.category }}</td>
+                  <td class="product-name">{{ item.title }}</td>
+                  <td style="text-align: right;">{{ item.origin_price }}</td>
+                  <td style="text-align: right;">{{ item.price }}</td>
+                  <td style="text-align: center;" :class="{'product-enable': item.is_enabled > 0}">{{ item.is_enabled > 0 ? '啟用' : '未啟用' }}</td>
+                  <td style="text-align: center;">
+                    <button type="button" class="edit" @click="editProduct(item)">編輯</button>
+                    <button type="button" class="delete" @click="deleteProduct(item)">刪除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="product-quantity">
+            <span>目前有 {{ products.length }} 項產品</span>
+          </div>
+        </div>
+        <div class="detail" v-if="false">
+          <h2>單一產品細節</h2>
+          <div class="product-none" v-if="!selectedProduct">
+            請點選產品細節
+          </div>
+          <div class="product-detail" v-else>
+            <div class="product-info">
+              <div v-for="item in displayDetailItem" :style="item.style" :key="item.key">{{ item.directShow? `${selectedProduct[item.key]}`: `${item.name} ${selectedProduct[item.key]}` }}</div>
+            </div>
+            <div class="product-imgs">
+              <div class="main-img">
+                <img :src="selectedProduct.imageUrl"></img>
+              </div>
+              <div class="other-imgs">
+                <img :src="img" v-for="img in selectedProduct.imagesUrl" :key="img">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

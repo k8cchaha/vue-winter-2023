@@ -1,0 +1,242 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login input {
+  width: 250px;
+  height: 40px;
+  margin: 10px;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.login button {
+  width: 260px;
+  height: 42px;
+  margin: 5px 0;
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: deepskyblue;
+  border: 1px solid deepskyblue;
+  color: white;
+}
+
+.login button:hover {
+  background-color:dodgerblue;
+  border-color: dodgerblue;
+}
+
+.login button:disabled {
+  background-color: gray !important;
+  border: 1px solid gray !important;
+}
+
+.container {
+  display: flex;
+}
+
+.header {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.header button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.logout {
+  background-color: red;
+  color: white;
+  border-color: red;
+}
+
+.main, .detail {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #dddddd;
+}
+
+th, td {
+  padding: 8px; /* 设置单元格内边距 */
+}
+
+th {
+  text-align: center;
+}
+
+tbody tr:hover {
+  background-color: wheat;
+}
+
+.main button {
+  cursor: pointer;
+  color: white;
+  background-color: blue;
+  border: 1px solid blue;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.product-name {
+  cursor: pointer;
+}
+
+.product-name:hover {
+  color: blue;
+}
+
+.product-enable {
+  color: green;
+}
+
+.product-quantity {
+  margin-top: 20px
+}
+
+.product-detail {
+  display: flex;
+}
+
+.product-info, .product-imgs {
+  flex: 1;
+}
+
+.container .detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-none {
+  display: flex;
+  color: red;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  font-size: 20px;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info div {
+  margin-bottom: 5px;;
+}
+
+.product-imgs {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 10px;
+}
+
+.product-imgs img {
+  max-height: 100%;
+  max-width: 100%;
+  margin: 5px;
+  overflow: hidden;
+}
+
+.main-img {
+  max-height: 300px;
+  margin-bottom: 10px;
+}
+
+.other-imgs {
+  max-height: 150px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.product-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-head button {
+  font-size: 20px;
+  height: 40px;
+  padding: 5px 20px;
+}
+
+.product-list .edit {
+  background-color: white;
+  color: blue;
+  border: 1px solid blue;
+  margin: 0 10px;
+}
+
+.product-list .delete {
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+  margin: 0 10px;
+}
+
+.pop-dlg {
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 400px;
+  height: 400px;
+  position: relative;
+}
+
+.popdlg-header {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding: 8px;
+}
+
+.popdlg-header span {
+  font-size: 20px;
+}
