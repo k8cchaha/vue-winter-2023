@@ -12,17 +12,73 @@
     <div class="overlay" v-show="showLoading">
       <div class="loader"></div>
     </div>
-    <div class="overlay" v-show="showCreateDlg || showEditDlg || showDeleteDlg">
+    <div class="overlay" v-show="showCreateDlg || showEditDlg || showDeleteDlg || showMsg" style="display: none;">
       <div class="pop-dlg">
         <div class="popdlg-header">
-          <span>{{ showCreateDlg? '新增': showEditDlg? '修改': showDeleteDlg? '刪除': 'Unknown' }}</span>
+          <span>{{ showCreateDlg? '新增': showEditDlg? '修改': showDeleteDlg? '刪除': '訊息' }}</span>
         </div>
-        <div v-show="showCreateDlg"></div>
-        <div v-show="showEditDlg"></div>
-        <div v-show="showDeleteDlg"></div>
+        <div v-if="showCreateDlg || showEditDlg" class="product-form">
+          <div>
+            <label>產品名稱：</label>
+            <input type="text" v-model="tempProductForm.title">
+          </div>
+          <div>
+            <label>描述：</label>
+            <input type="text" v-model="tempProductForm.description">
+          </div>
+          <div>
+            <label>內容：</label>
+            <input type="text" v-model="tempProductForm.content">
+          </div>
+          <div>
+            <label>分類：</label>
+            <input type="text" v-model="tempProductForm.category">
+          </div>
+          <div>
+            <label>數量：</label>
+            <input type="number" v-model="tempProductForm.num" min="0">
+          </div>
+          <div>
+            <label>單位：</label>
+            <input type="text" v-model="tempProductForm.unit">
+          </div>
+          <div>
+            <label>原價：</label>
+            <input type="text" v-model="tempProductForm.origin_price">
+          </div>
+          <div>
+            <label>特價：</label>
+            <input type="text" v-model="tempProductForm.price">
+          </div>
+          <div>
+            <label>主圖網址：</label>
+            <input type="text" v-model="tempProductForm.imageUrl">
+          </div>
+          <div>
+            <label>副圖網址：</label>
+            <input type="text" placeholder="請用分號區隔" v-model="tempProductForm.imgListStr">
+          </div>
+          <div>
+            <input type="checkbox" v-model="tempProductForm.is_enabled" :true-value="1" :false-value="0">
+            <label>啟用</label>
+          </div>
+        </div>
+        <div v-if="showDeleteDlg"  class="product-form">
+          <div>
+            <label>產品名稱：{{ tempProductForm.title }}</label>
+          </div>
+          <div class="alert-msg">
+            <span>確定是否要刪除此筆資料?</span>
+          </div>
+        </div>
+        <div v-if="showMsg">
+          <div class="product-form">
+            <span>{{ msgContent }}</span>
+          </div>
+        </div>
         <div class="popdlg-footer">
-          <button type="button">取消</button>
-          <button type="button">確定</button>
+          <button type="button" class="btn-cancel" @click="dlgCancel" v-if="!showMsg">取消</button>
+          <button type="button" class="btn-ok" @click="dlgOK">確定</button>
         </div>
       </div>
     </div>

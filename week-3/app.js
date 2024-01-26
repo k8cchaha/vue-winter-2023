@@ -63,7 +63,20 @@ const app = createApp({
       }],
       showCreateDlg: false,
       showEditDlg: false,
-      showDeleteDlg: false
+      showDeleteDlg: false,
+      showMsg: false,
+      tempProductForm: {
+        title: '',
+        category: '',
+        origin_price: '',
+        price: '',
+        unit: '',
+        description: '',
+        content: '',
+        is_enabled: true,
+        imageUrl: '',
+        imagesUrl: ''
+      }
     }
   },
   computed: {
@@ -87,13 +100,81 @@ const app = createApp({
       })
     },
     createProduct() {
+      this.resetTempForm()
       this.showCreateDlg = true;
     },
     editProduct(item) {
-      
+      this.resetTempForm(item)
+      this.showEditDlg = true;
     },
     deleteProduct(item) {
-      
+      this.resetTempForm(item)
+      this.showDeleteDlg = true;
+    },
+    resetTempForm(obj) {
+      if (obj) {
+        this.tempProductForm = { ...obj };
+        this.tempProductForm.imgListStr = this.tempProductForm.imgListStr? this.tempProductForm.imgListStr.join(';') : ''
+      } else {
+        this.tempProductForm.title = '';
+        this.tempProductForm.category = '';
+        this.tempProductForm.origin_price = '';
+        this.tempProductForm.price = '';
+        this.tempProductForm.num = 0;
+        this.tempProductForm.unit = '';
+        this.tempProductForm.description = '';
+        this.tempProductForm.content = '';
+        this.tempProductForm.is_enabled = 1;
+        this.tempProductForm.imageUrl = '';
+        this.tempProductForm.imagesUrl = '';
+      }
+    },
+    popMsg(msg) {
+      this.msgContent = msg;
+      this.showMsg = true;
+    },
+    dlgOK() {
+      if (this.showCreateDlg) {
+        const data = this.handleData(this.tempProductForm)
+        this.apiCreateProduct(data)
+        .then(()=>{
+          this.popMsg('產品新增成功');
+          this.getProducts();
+        })
+        .finally(()=>{
+          this.showLoading = false
+        })
+      } else if (this.showEditDlg) {
+        const data = this.handleData(this.tempProductForm)
+        this.apiEditProduct(this.tempProductForm.id, data)
+        .then(()=>{
+          this.popMsg('產品更新成功');
+          this.getProducts();
+        })
+        .finally(()=>{
+          this.showLoading = false
+        })
+
+      } else if (this.showDeleteDlg) {
+        this.apiDeleteProduct(this.tempProductForm.id)
+        .then(()=>{
+          this.popMsg('產品刪除成功');
+          this.getProducts();
+        })
+        .finally(()=>{
+          this.showLoading = false
+        })
+      } 
+      this.dlgClose();
+    },
+    dlgCancel() {
+      this.dlgClose();
+    },
+    dlgClose() {
+      this.showCreateDlg = false;
+      this.showEditDlg = false;
+      this.showDeleteDlg = false;
+      this.showMsg = false;
     },
     submit() {
       const data = {
@@ -169,6 +250,18 @@ const app = createApp({
       this.showLoading = true
       return axios.get(`v2/api/${this.api_path}/admin/products`)
     },
+    apiCreateProduct(data) {
+      this.showLoading = true
+      return axios.post(`v2/api/${this.api_path}/admin/product`, data)
+    },
+    apiEditProduct(id, data) {
+      this.showLoading = true
+      return axios.put(`v2/api/${this.api_path}/admin/product/${id}`, data)
+    },
+    apiDeleteProduct(id) {
+      this.showLoading = true
+      return axios.delete(`v2/api/${this.api_path}/admin/product/${id}`)
+    },
     getCookie(name) {
       const value = `; ${document.cookie}`;
       const parts = value.split(`; ${name}=`);
@@ -178,6 +271,24 @@ const app = createApp({
       this.account = ''
       this.password = ''
       this.isLogin = false
+    },
+    handleData(data) {
+      return {
+        data: {
+          title: data.title,
+          category: data.category,
+          origin_price: parseInt(data.origin_price),
+          price: parseInt(data.price),
+          num: data.num || 0,
+          unit: data.unit,
+          description: data.description,
+          content: data.content,
+          is_enabled: data.is_enabled,
+          imageUrl: data.imageUrl,
+          imagesUrl: data.imgListStr? data.imgListStr.split(';') : []
+        }
+      }
+
     }
   },
   mounted() {    

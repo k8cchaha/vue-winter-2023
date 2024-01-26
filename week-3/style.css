@@ -226,8 +226,8 @@ tbody tr:hover {
   background-color: white;
   border: 1px solid black;
   border-radius: 10px;
-  width: 400px;
-  height: 400px;
+  min-width: 300px;
+  /* height: 400px; */
   position: relative;
 }
 
@@ -239,4 +239,43 @@ tbody tr:hover {
 
 .popdlg-header span {
   font-size: 20px;
+}
+
+.popdlg-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.popdlg-footer button {
+  padding: 5px 20px;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popdlg-footer .btn-ok {
+  background-color: blue;
+  color: white;
+  border: 1px solid blue;
+}
+
+.popdlg-footer .btn-cancel {
+  background-color: white;
+  color: blue;
+  border: 1px solid blue;
+}
+
+.product-form {
+  padding: 10px 20px;
+}
+
+.product-form>div {
+  margin-bottom: 10px;
+}
+
+.alert-msg {
+  font-size: 20px;
+  font-weight: 900;
+  color: red;
 }
